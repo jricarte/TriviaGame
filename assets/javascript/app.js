@@ -1,5 +1,5 @@
 // Initial values
-let counter = 30;
+let counter = 15;
 let currentQuestion = 0;
 let score = 0;
 let lost = 0;
@@ -38,24 +38,20 @@ const quizQuestions = [
 ];
 
 const funImages = [
-    './assets/images/happy fun.gif',
-    './assets/images/hellYeah.gif',
-    './assets/images/winning.gif',
-    './assets/images/yeah.gif',
-    './assets/images/you did it.gif'
+    'https://media.giphy.com/media/UvOcKPHrkKSLm/giphy.gif',
+    'https://media.giphy.com/media/BcP6MWBzfkd2w/giphy.gif',
+    'https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif',
 ];
 
 const sadImages = [
-    './assets/images/danm.gif',
-    './assets/images/oops.gif',
-    './assets/images/pretty bad.gif'
+    'https://media.giphy.com/media/tSgrWN1uHXdcc/giphy.gif',
+    'https://media.giphy.com/media/l6iDb0HCdAU1O/giphy.gif',
 ];
 
 // If the timer is over, then go to the next question
 function nextQuestion() {
     const isQuestionOver = (quizQuestions.length - 1) === currentQuestion;
     if (isQuestionOver) {
-        // TODO
         console.log('Game is over!!!!!');
         displayResult();
     } else {
@@ -87,7 +83,7 @@ function countDown() {
 
 // Display the question and the choices to the browser
 function loadQuestion() {
-    counter = 30;
+    counter = 15;
     timer = setInterval(countDown, 1000);
 
     const question = quizQuestions[currentQuestion].question; // 
@@ -134,9 +130,9 @@ $(document).on('click', '.choice', function() {
 
 function displayResult() {
     const result = `
-        <p>You get ${score} questions(s) right</p>
+        <p>You got ${score} questions(s) right</p>
         <p>You missed ${lost} questions(s)</p>
-        <p>Total questions ${quizQuestions.length} questions(s) right</p>
+        <p>Total questions ${quizQuestions.length} <br> Try again! </p>
         <button class="btn btn-primary" id="reset">Reset Game</button>
     `;
 
@@ -145,7 +141,7 @@ function displayResult() {
 
 
 $(document).on('click', '#reset', function() {
-    counter = 30;
+    counter = 15;
     currentQuestion = 0;
     score = 0;
     lost = 0;
@@ -170,20 +166,20 @@ function randomImage(images) {
 }
 
 
-// Display a funny giphy for correct and wrong answers
+// Display a .gif when question is answered
 function preloadImage(status) {
     const correctAnswer = quizQuestions[currentQuestion].correctAnswer;
 
     if (status === 'win') {
         $('#game').html(`
-            <p class="preload-image">Congratulations, you pick the corrrect answer</p>
+            <p class="preload-image">You are Correct!</p>
             <p class="preload-image">The correct answer is <b>${correctAnswer}</b></p>
             <img src="${randomImage(funImages)}" />
         `);
     } else {
         $('#game').html(`
             <p class="preload-image">The correct answer was <b>${correctAnswer}</b></p>
-            <p class="preload-image">You lost pretty bad</p>
+            <p class="preload-image">Better luck next time!</p>
             <img src="${randomImage(sadImages)}" />
         `);
     }
